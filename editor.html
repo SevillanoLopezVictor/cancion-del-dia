@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Editor — Canción del día</title>
+<meta name="theme-color" content="#120d1e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Editor">
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="app.css">
+<style>
+  body { padding-bottom: 40px; }
+  .caja { background: rgba(255,255,255,.05); border-radius: 14px; padding: 14px; margin-bottom: 12px; }
+  label { display: block; font-size: 12px; color: var(--texto-tenue); margin: 10px 0 5px; }
+  input, textarea, select {
+    width: 100%; padding: 11px; border-radius: 10px; font-size: 15px; font-family: inherit;
+    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); color: #fff;
+  }
+  textarea { min-height: 130px; resize: vertical; line-height: 1.5; }
+  .btn {
+    width: 100%; padding: 13px; border: 0; border-radius: 999px; font-size: 15px;
+    font-weight: 600; font-family: inherit; cursor: pointer; margin-top: 10px;
+    background: var(--acento); color: #fff;
+  }
+  .btn.gris { background: rgba(255,255,255,.12); }
+  .btn.verde { background: var(--spotify); }
+  .btn:disabled { opacity: .45; }
+  .filtros { display: flex; gap: 6px; margin-bottom: 10px; }
+  .filtros button {
+    flex: 1; padding: 9px 4px; border: 0; border-radius: 10px; font-size: 12px;
+    font-family: inherit; background: rgba(255,255,255,.08); color: var(--texto-tenue); cursor: pointer;
+  }
+  .filtros button.on { background: rgba(255,115,144,.25); color: var(--acento); }
+  .estado { font-size: 13px; padding: 10px; border-radius: 10px; margin-top: 10px; display: none; }
+  .estado.ok { display: block; background: rgba(29,185,84,.18); color: #6ee7a0; }
+  .estado.mal { display: block; background: rgba(255,80,80,.18); color: #ff9b9b; }
+  .estado.info { display: block; background: rgba(255,255,255,.08); color: var(--texto-tenue); }
+  .resumen { display: flex; gap: 8px; text-align: center; margin-bottom: 12px; }
+  .resumen div { flex: 1; background: rgba(255,255,255,.05); border-radius: 12px; padding: 10px 4px; }
+  .resumen b { display: block; font-size: 19px; }
+  .resumen span { font-size: 10px; color: var(--texto-tenue); }
+  .aviso-caja { font-size: 12px; color: var(--texto-tenue); line-height: 1.5; margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<header class="cabecera"><h1>Editor</h1><div class="contador" id="sub"></div></header>
+
+<main>
+  <!-- ACCESO -->
+  <section class="vista activa" id="v-acceso">
+    <div class="caja">
+      <label>Token de GitHub (permiso Gists → write)</label>
+      <input type="password" id="token" placeholder="github_pat_…" autocomplete="off">
+      <button class="btn" id="btn-entrar">Entrar</button>
+      <div class="estado" id="estado-acceso"></div>
+      <p class="aviso-caja">El token se guarda solo en este dispositivo. No se envía a ningún sitio
+      salvo a la propia API de GitHub para publicar.</p>
+    </div>
+  </section>
+
+  <!-- LISTA -->
+  <section class="vista" id="v-lista"></section>
+
+  <!-- EDICIÓN -->
+  <section class="vista" id="v-editar"></section>
+</main>
+
+<script src="editor.js"></script>
+</body>
+</html>

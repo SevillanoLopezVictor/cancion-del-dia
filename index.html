@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<title>Canción del día</title>
+<meta name="theme-color" content="#120d1e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Canción del día">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <h1 id="titulo-app">Canción del día</h1>
+  <div class="contador" id="contador"></div>
+</header>
+
+<main>
+  <!-- HOY -->
+  <section class="vista activa" id="vista-hoy"></section>
+
+  <!-- HISTORIAL -->
+  <section class="vista" id="vista-historial"></section>
+</main>
+
+<nav class="pestanas">
+  <button class="pestana activa" data-vista="hoy">
+    <span class="ico">✨</span><span>Hoy</span>
+  </button>
+  <button class="pestana" data-vista="historial">
+    <span class="ico">🕘</span><span>Historial</span>
+  </button>
+</nav>
+
+<div class="modal" id="modal">
+  <button class="cerrar-modal" id="cerrar-modal" aria-label="Cerrar">✕</button>
+  <div id="modal-contenido"></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
