@@ -56,9 +56,9 @@ function muestra() {
     : esIOS
       ? `<ol class="ins-pasos">
            <li><span class="ins-ico">${ICONO_COMPARTIR}</span>
-               Pulsa <strong>Compartir</strong>, abajo en la barra de Safari</li>
+               <span>Pulsa <strong>Compartir</strong> en la barra de abajo</span></li>
            <li><span class="ins-ico">${ICONO_MAS}</span>
-               Elige <strong>Añadir a pantalla de inicio</strong></li>
+               <span>Elige <strong>Añadir a pantalla de inicio</strong></span></li>
          </ol>`
       : `<p class="ins-nota">Instálala para tenerla siempre a mano.</p>
          <button class="ins-btn" id="ins-instalar">Instalar</button>`;

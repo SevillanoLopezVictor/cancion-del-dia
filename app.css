@@ -189,7 +189,8 @@ main { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 0 
   padding: 11px 12px; background: rgba(255,255,255,.06);
   border-radius: 13px; margin-bottom: 8px; line-height: 1.35;
 }
-.ins-ico { flex-shrink: 0; color: var(--acento); display: flex; }
+.ins-ico { flex-shrink: 0; color: var(--acento); display: flex; align-items: center; }
+.ins-pasos li > span:last-child { flex: 1; }
 .ins-nota { font-size: 14px; color: var(--texto-medio); margin: 0 0 16px; line-height: 1.5; }
 .ins-btn {
   width: 100%; padding: 13px; border: 0; border-radius: 999px; background: var(--acento);
