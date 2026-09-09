@@ -20,11 +20,16 @@ const otroNavegadorIOS = esIOS && !esSafari;
 const yaInstalada = window.navigator.standalone === true ||
                     window.matchMedia('(display-mode: standalone)').matches;
 
+/* ?instalar=1 vuelve a sacar el panel aunque le hubieras dado a "Ahora no". */
+const FORZAR = new URLSearchParams(location.search).has('instalar');
+if (FORZAR) { try { localStorage.removeItem('cdd_instalar_app');
+                    localStorage.removeItem('cdd_instalar_editor'); } catch (e) {} }
+
 let promptDiferido = null;
 window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault();
   promptDiferido = e;
-  if (!yaInstalada && !silenciado()) muestra();
+  if (!yaInstalada && (FORZAR || !silenciado())) muestra();
 });
 
 function silenciado() {
@@ -96,8 +101,8 @@ function muestra() {
   });
 }
 
-if (!yaInstalada && !silenciado() && esIOS) {
-  setTimeout(muestra, 1400);
+if (!yaInstalada && (FORZAR || !silenciado()) && esIOS) {
+  setTimeout(muestra, FORZAR ? 250 : 1400);
 }
 
 })();
