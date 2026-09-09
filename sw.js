@@ -1,7 +1,7 @@
 /* Caché para que funcione sin conexión, sin quedarse congelada en una
    versión vieja: los archivos de la app se piden a la red primero y la
    caché es solo el paracaídas. Las imágenes sí van de caché primero. */
-const CACHE = 'cancion-del-dia-v3';
+const CACHE = 'cancion-del-dia-v4';
 const BASICOS = [
   './', './index.html', './app.css', './app.js', './instalar.js',
   './manifest.webmanifest', './icon-180.png', './icon-192.png', './icon-512.png'

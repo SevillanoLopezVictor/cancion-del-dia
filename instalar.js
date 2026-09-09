@@ -75,7 +75,11 @@ function muestra() {
       <button class="ins-cerrar" id="ins-cerrar">Ahora no</button>
     </div>`;
   document.body.appendChild(panel);
-  requestAnimationFrame(() => panel.classList.add('visible'));
+  // rAF no se ejecuta si la pestaña está en segundo plano, así que
+  // dejamos también un temporizador de respaldo: nunca se queda invisible.
+  const enseña = () => panel.classList.add('visible');
+  requestAnimationFrame(enseña);
+  setTimeout(enseña, 120);
 
   const cierra = () => { silencia(); panel.classList.remove('visible');
                          setTimeout(() => panel.remove(), 300); };
