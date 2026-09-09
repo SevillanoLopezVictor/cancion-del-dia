@@ -21,9 +21,16 @@ function fecha(iso) {
   const [a, m, d] = iso.split('-').map(Number);
   return new Date(a, m - 1, d);
 }
-function hoy() {
+function hoyReal() {
   const n = new Date();
   return new Date(n.getFullYear(), n.getMonth(), n.getDate());
+}
+function hoy() {
+  if (PREVIA && catalogo) {
+    if (PREVIA.tipo === 'fecha') return fecha(PREVIA.valor);
+    return sumaDias(fecha(catalogo.startDate), PREVIA.valor - 1);
+  }
+  return hoyReal();
 }
 function sumaDias(f, n) {
   const r = new Date(f);
@@ -54,10 +61,26 @@ function leeJSON(clave, porDefecto) {
 /* ------------------------------------------------------------- estado */
 
 let catalogo = null;
-let progreso = leeJSON(CONFIG.clavesLocales.progreso, {});
 let soloFavoritas = false;
 
-function guardaProgreso() { guardaJSON(CONFIG.clavesLocales.progreso, progreso); }
+/* Vista previa (solo para ti):
+     ?probar=2026-12-25   → ese día
+     ?probar=1            → el primer día del diario
+   No guarda nada: no ensucia el progreso ni deja rastro. */
+const PREVIA = (() => {
+  const v = new URLSearchParams(location.search).get('probar');
+  if (!v) return null;
+  if (/^\d{4}-\d{2}-\d{2}$/.test(v)) return { tipo: 'fecha', valor: v };
+  if (/^\d+$/.test(v)) return { tipo: 'dia', valor: Number(v) };
+  return null;
+})();
+
+let progreso = PREVIA ? {} : leeJSON(CONFIG.clavesLocales.progreso, {});
+
+function guardaProgreso() {
+  if (PREVIA) return;                      // en vista previa no se guarda nada
+  guardaJSON(CONFIG.clavesLocales.progreso, progreso);
+}
 function delDia(i) { return progreso[i] || {}; }
 
 /* ------------------------------------------------------------ catálogo */
@@ -117,6 +140,7 @@ function enlace(cancion) {
 function pinta() {
   if (!catalogo) return;
   $('#titulo-app').textContent = catalogo.appTitle || 'Canción del día';
+  pintaAvisoPrevia();
 
   const i = indiceHoy(), total = totalDias();
   $('#contador').textContent =
@@ -124,6 +148,23 @@ function pinta() {
 
   pintaHoy();
   pintaHistorial();
+}
+
+function pintaAvisoPrevia() {
+  if (!PREVIA) return;
+  let barra = document.getElementById('barra-previa');
+  if (!barra) {
+    barra = document.createElement('div');
+    barra.id = 'barra-previa';
+    barra.style.cssText =
+      'position:fixed;left:0;right:0;top:0;z-index:50;padding:6px 10px;' +
+      'padding-top:calc(6px + env(safe-area-inset-top));text-align:center;' +
+      'font-size:11px;letter-spacing:.4px;background:#7a4bd0;color:#fff';
+    document.body.appendChild(barra);
+    document.body.style.paddingTop = '26px';
+  }
+  barra.innerHTML = `VISTA PREVIA · ${mayus(fechaLarga(hoy()))} · ` +
+    `<a href="${location.pathname}" style="color:#fff;text-decoration:underline">salir</a>`;
 }
 
 function pintaHoy() {
