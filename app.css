@@ -166,3 +166,36 @@ main { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 0 
 .aviso { text-align: center; padding: 40px 20px; color: var(--texto-tenue); font-size: 15px; line-height: 1.6; }
 .aviso .grande { font-size: 46px; display: block; margin-bottom: 14px; }
 .aviso .mensaje { font-family: Georgia, serif; font-size: 19px; color: var(--texto); margin-bottom: 10px; }
+
+/* ---------- panel de instalación ---------- */
+#panel-instalar { position: fixed; inset: 0; z-index: 100; opacity: 0; transition: opacity .28s; }
+#panel-instalar.visible { opacity: 1; }
+.ins-fondo { position: absolute; inset: 0; background: rgba(0,0,0,.55); backdrop-filter: blur(3px); }
+.ins-hoja {
+  position: absolute; left: 10px; right: 10px;
+  bottom: calc(10px + env(safe-area-inset-bottom));
+  background: #1e1630; border: 1px solid rgba(255,255,255,.12);
+  border-radius: 24px; padding: 24px 22px 18px; text-align: center;
+  transform: translateY(18px); transition: transform .32s cubic-bezier(.2,.9,.3,1);
+  box-shadow: 0 -8px 40px rgba(0,0,0,.5);
+}
+#panel-instalar.visible .ins-hoja { transform: none; }
+.ins-icono { width: 62px; height: 62px; border-radius: 14px; margin-bottom: 12px; }
+.ins-hoja h2 { margin: 0 0 6px; font-size: 19px; font-family: Georgia, serif; }
+.ins-sub { margin: 0 0 18px; font-size: 14px; color: var(--texto-tenue); line-height: 1.45; }
+.ins-pasos { list-style: none; margin: 0 0 16px; padding: 0; text-align: left; }
+.ins-pasos li {
+  display: flex; align-items: center; gap: 12px; font-size: 14.5px;
+  padding: 11px 12px; background: rgba(255,255,255,.06);
+  border-radius: 13px; margin-bottom: 8px; line-height: 1.35;
+}
+.ins-ico { flex-shrink: 0; color: var(--acento); display: flex; }
+.ins-nota { font-size: 14px; color: var(--texto-medio); margin: 0 0 16px; line-height: 1.5; }
+.ins-btn {
+  width: 100%; padding: 13px; border: 0; border-radius: 999px; background: var(--acento);
+  color: #fff; font-size: 15px; font-weight: 600; font-family: inherit; cursor: pointer;
+}
+.ins-cerrar {
+  width: 100%; padding: 11px; border: 0; background: none; margin-top: 4px;
+  color: var(--texto-tenue); font-size: 14px; font-family: inherit; cursor: pointer;
+}
